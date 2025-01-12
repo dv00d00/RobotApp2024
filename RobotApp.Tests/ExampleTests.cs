@@ -27,14 +27,14 @@ public class ExampleBasedTests
     ];
     
     [Theory]
-    [MemberData(nameof(Samples))]    
-    public void Test(TestCase testCase)
+    [MemberData(nameof(ExampleTestCases))]    
+    public void Should_HandleProvidedExamples(TestCase testCase)
     {
         var actualOutput = CompositionRoot.Execute(testCase.Input).ToArray();
         Assert.Equal(expected: testCase.ExpectedOutput, actual: actualOutput);
     }
     
-    public static IEnumerable<object[]> Samples() 
+    public static IEnumerable<object[]> ExampleTestCases() 
     {
         yield return [new TestCase("Sample0", Sample0, Sample0Expected)];
         yield return [new TestCase("Sample1", Sample1, Sample1Expected)];

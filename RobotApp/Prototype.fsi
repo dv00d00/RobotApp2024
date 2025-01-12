@@ -1,11 +1,10 @@
-﻿// #r "nuget: FParsec, 1.1.1"
-// #r "nuget: FsToolkit.ErrorHandling"
+﻿#r "nuget: FParsec"
+#r "nuget: FsToolkit.ErrorHandling"
 
 open System.IO
 open FParsec
 open FsToolkit.ErrorHandling
 
-// Define types for the parsed data
 type Direction = N | E | S | W
 type Command = TurnLeft | TurnRight | MoveForward
 
@@ -85,11 +84,6 @@ let parseJourney =
     
 let parseJourneys = many parseJourney
 
-// grid
-// 0-N Obstacles (optional)
-// 0-N Journeys
-
-// Top-level parser
 let parseFile =
     parseGrid
     .>> spaces
@@ -202,8 +196,5 @@ let launch filename = result {
     )
 } 
     
-launch "C:\work\Robot\RobotApp\Sample0.txt" 
-launch "C:\work\Robot\RobotApp\Sample1.txt" 
-launch "C:\work\Robot\RobotApp\Sample2.txt" 
-launch "C:\work\Robot\RobotApp\SampleBad0.txt" 
-launch "C:\work\Robot\RobotApp\SampleBad1.txt" 
+let path = __SOURCE_DIRECTORY__ + "\..\RobotApp.Tests\Sample0.txt"
+launch path
