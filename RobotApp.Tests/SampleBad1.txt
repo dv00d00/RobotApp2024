@@ -1,0 +1,16 @@
+GRID 4x3
+
+OBSTACLE 1 2
+OBSTACLE 2 1
+
+1 1 E
+RFR
+1 0 W
+
+1 1 E
+RFRF
+1 1 E
+
+1 11 E
+RFF
+1 1 E
