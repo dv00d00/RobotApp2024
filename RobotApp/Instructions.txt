@@ -116,7 +116,6 @@ The expected output for Sample.txt is:
 SUCCESS 1 0 W
 FAILURE 0 0 W
 OUT OF BOUNDS
-CRASHED 3 1
 
 Sample1.txt contains some more complex journeys to process.
 
