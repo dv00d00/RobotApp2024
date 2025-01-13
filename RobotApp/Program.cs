@@ -163,7 +163,3 @@ public static class Program
         private void Log(string line) => _output.Add(line);
     }
 }
-
-// todo: grid dependant coordinates
-// todo: stream based parsing
-// todo: command list optimization LLLL -> empty, LLL -> R etc
