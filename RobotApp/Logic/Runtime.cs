@@ -1,6 +1,5 @@
 ﻿using System;
 using LanguageExt;
-using static LanguageExt.Prelude;
 
 namespace RobotApp.Logic;
 
@@ -67,7 +66,7 @@ public static class Runtime
     {
         log?.LogJourneyStart(file, journey);
             
-        // check if we start from obstacle
+        // check if we start from an obstacle
         if (file.Obstacles.Contains(new Obstacle(journey.InitialState.X, journey.InitialState.Y)))
         {
             var runtimeError = RuntimeError.Crashed(journey.InitialState);
@@ -98,12 +97,10 @@ public static class Runtime
         
     public static Lst<Either<RuntimeError, RobotState>> TravelAll(ValidatedFile file, IRuntimeLog? log = null)
     {
-        return toList(file.Journeys).Map(journey => TravelOne(file, journey, log));
+        return file.Journeys.Map(journey => TravelOne(file, journey, log));
     }
 
-    /// <summary>
-    /// Either<L,R> specific foldM implementation, short circuits on Left
-    /// </summary>
+    // Either<L,R> specific foldM implementation, short circuits on Left
     private static Either<L, R> FoldM<L, R, A>(
         this Lst<A> list, 
         Either<L, R> initial, 

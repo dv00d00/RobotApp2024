@@ -16,7 +16,7 @@ public abstract record Error;
 
 public record ParserError(string Message) : Error;
 
-public enum ValidationErrorType { InvalidGrid, ObstacleOutOfBounds, RobotStateOutOfBounds }
+public enum ValidationErrorType { InvalidGrid, ObstacleOutOfBounds, RobotStateOutOfBounds, InvalidCommand, InvalidDirection }
 public record ValidationError(ValidationErrorType Kind, string Message) 
 {
     public static ValidationError InvalidGrid(Grid grid) => 
@@ -25,20 +25,40 @@ public record ValidationError(ValidationErrorType Kind, string Message)
             $"Invalid grid {grid}");
     
     public static ValidationError ObstacleOutOfBounds(Obstacle obstacle, Grid grid) => 
+        ObstacleOutOfBounds(obstacle, grid.Width, grid.Height);
+    
+    public static ValidationError ObstacleOutOfBounds(Obstacle obstacle, Validated.Grid grid) => 
+        ObstacleOutOfBounds(obstacle, grid.Width.Value, grid.Height.Value);
+    
+    public static ValidationError ObstacleOutOfBounds(Obstacle obstacle, int width, int height) => 
         new ValidationError(
             ValidationErrorType.ObstacleOutOfBounds, 
-            $"Obstacle [{obstacle}] out of bounds of defined grid [{grid}]");
+            $"Obstacle [{obstacle}] out of bounds of defined grid [{width}x{height}]");
     
-    public static ValidationError RobotStateOutOfBounds(RobotState state, Grid grid, bool initial)
+    public static ValidationError RobotStateOutOfBounds(RobotState state, Grid grid, bool initial) => 
+        RobotStateOutOfBounds(state, grid.Width, grid.Height, initial);
+
+    public static ValidationError RobotStateOutOfBounds(RobotState state, Validated.Grid grid, bool initial) => 
+        RobotStateOutOfBounds(state, grid.Width.Value, grid.Height.Value, initial);
+
+    public static ValidationError RobotStateOutOfBounds(RobotState state, int width, int height, bool initial)
     {
         var message = initial 
-                ? $"Initial robot state [{state}] out of bounds of defined grid [{grid}]"
-                : $"Final robot state [{state}] out of bounds of defined grid [{grid}]";
+            ? $"Initial robot state [{state}] out of bounds of defined grid [{width}x{height}]"
+            : $"Final robot state [{state}] out of bounds of defined grid [{width}x{height}]";
         
-        return new ValidationError(
-            ValidationErrorType.RobotStateOutOfBounds,
-            message);
+        return new ValidationError(ValidationErrorType.RobotStateOutOfBounds, message);
     }
+    
+    public static ValidationError InvalidCommand(Command command) => 
+        new ValidationError(
+            ValidationErrorType.InvalidCommand, 
+            $"Invalid command {command}");
+    
+    public static ValidationError InvalidDirection(Direction direction) =>
+        new ValidationError(
+            ValidationErrorType.InvalidDirection,
+            $"Invalid direction {direction}");
 }
 public record ValidationErrors(Lst<ValidationError> Errors) : Error;
 

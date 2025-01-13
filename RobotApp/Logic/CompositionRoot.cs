@@ -1,5 +1,6 @@
 ﻿using System;
 using LanguageExt;
+using static LanguageExt.Prelude;
 
 namespace RobotApp.Logic;
 
@@ -16,9 +17,9 @@ public static class CompositionRoot
             {
                 return error switch
                 {
-                    ParserError pe => Prelude.List($"Parsing: {pe.Message}"),
+                    ParserError pe => List($"Parsing: {pe.Message}"),
                     ValidationErrors ve => ve.Errors.Map(e => $"Validation: {e.Message}"),
-                    _ => Prelude.List($"Unknown: {error}"),
+                    _ => List($"Unknown: {error}"),
                 };
             },
             Right: runs => runs.Map(run => run.Match(
@@ -45,7 +46,7 @@ public static class CompositionRoot
         return results;
     }
 
-    internal static Either<Error, Lst<Either<RuntimeError, RobotState>>> RunComputation(string input, Runtime.IRuntimeLog? gridVisualiser = null) =>
+    private static Either<Error, Lst<Either<RuntimeError, RobotState>>> RunComputation(string input, Runtime.IRuntimeLog? gridVisualiser = null) =>
         from parsedFile in Parser.ParseInput(input)
         from validatedFile in Validator.ValidateParsedFile(parsedFile)
         select Runtime.TravelAll(validatedFile, gridVisualiser);

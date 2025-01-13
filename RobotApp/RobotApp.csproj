@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="Prototype.fsi"/>
+        <None Include="Prototype.fsx" />
     </ItemGroup>
 
 </Project>
