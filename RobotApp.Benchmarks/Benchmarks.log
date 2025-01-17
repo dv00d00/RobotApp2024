@@ -9,7 +9,7 @@ Intel Core i9-9900K CPU 3.60GHz (Coffee Lake), 1 CPU, 16 logical and 8 physical 
 Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3
 
-| Method                | Method                | Mean        | Error       | StdDev    | Gen0      | Gen1     | Gen2     | Allocated   |
+| Method                | Mean        | Error       | StdDev    | Gen0      | Gen1     | Gen2     | Allocated   |
 |---------------------- |------------:|------------:|----------:|----------:|---------:|---------:|------------:|
 | Safe                  | 13,755.8 us | 5,387.08 us | 295.28 us | 4812.5000 | 265.6250 | 250.0000 | 39307.42 KB |
 | Dirty                 |    449.4 us |   143.24 us |   7.85 us |   35.1563 |   1.4648 |        - |   290.22 KB |
