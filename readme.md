@@ -39,3 +39,9 @@ It was a great challenge, I've really missed writing functional code. I might ha
 
 I believe the right way to treat this code as a sort pull request, rather than a final solution. I would love to hear your thoughts on the codebase and the design decisions I've made.
 
+## Unfinished tasks
+
+- Stream based parsing using parsers combinators
+- Command list optimization LLLL -> empty, LLL -> R etc
+- Aff for program?
+- More example based tests
