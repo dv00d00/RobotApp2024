@@ -19,6 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\FParsec.Parser\FParsec.Parser.fsproj" />
       <ProjectReference Include="..\RobotApp\RobotApp.csproj" />
     </ItemGroup>
 

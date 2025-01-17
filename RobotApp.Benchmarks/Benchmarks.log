@@ -9,12 +9,14 @@ Intel Core i9-9900K CPU 3.60GHz (Coffee Lake), 1 CPU, 16 logical and 8 physical 
 Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3
 
-| Method           | Mean        | Error       | StdDev    | Gen0      | Gen1     | Gen2     | Allocated   |
-|----------------- |------------:|------------:|----------:|----------:|---------:|---------:|------------:|
-| Safe             | 13,218.6 us | 1,886.99 us | 103.43 us | 4812.5000 | 265.6250 | 250.0000 | 39307.43 KB |
-| Dirty            |    442.4 us |    31.21 us |   1.71 us |   35.1563 |   8.3008 |        - |   290.22 KB |
-| Safe_CachedFile  | 12,190.9 us | 1,620.30 us |  88.81 us | 4796.8750 | 187.5000 | 171.8750 | 39211.21 KB |
-| Dirty_CachedFile |    273.4 us |    38.51 us |   2.11 us |   34.1797 |  19.5313 |        - |   280.33 KB |
+| Method                | Method                | Mean        | Error       | StdDev    | Gen0      | Gen1     | Gen2     | Allocated   |
+|---------------------- |------------:|------------:|----------:|----------:|---------:|---------:|------------:|
+| Safe                  | 13,755.8 us | 5,387.08 us | 295.28 us | 4812.5000 | 265.6250 | 250.0000 | 39307.42 KB |
+| Dirty                 |    449.4 us |   143.24 us |   7.85 us |   35.1563 |   1.4648 |        - |   290.22 KB |
+| Safe_CachedFile       | 11,898.6 us |   582.41 us |  31.92 us | 4796.8750 | 187.5000 | 171.8750 | 39211.21 KB |
+| Dirty_CachedFile      |    282.5 us |    78.05 us |   4.28 us |   34.1797 |  19.5313 |        - |   280.33 KB |
+| FsharpSafe_CachedFile |    414.0 us |   238.36 us |  13.07 us |   90.8203 |  90.3320 |        - |   744.26 KB |
+| FsharpSafe_Stream     |    478.1 us |   143.32 us |   7.86 us |  101.5625 | 101.0742 |        - |   833.76 KB |
 
 // * Legends *
   Mean      : Arithmetic mean of all measurements

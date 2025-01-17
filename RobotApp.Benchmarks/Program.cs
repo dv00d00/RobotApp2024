@@ -3,6 +3,8 @@ using System.IO.Pipelines;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using LanguageExt;
+using Microsoft.FSharp.Collections;
+using Microsoft.FSharp.Core;
 using RobotApp.Logic;
 
 namespace RobotApp.Dirty;
@@ -11,6 +13,10 @@ namespace RobotApp.Dirty;
 [ShortRunJob]
 public class ParserBenchmarkComparison
 {
+    
+    private static readonly string _cachedFileString = File.ReadAllText("SampleBig.txt");
+    private static readonly byte[] _cachedFileBytes = File.ReadAllBytes("SampleBig.txt");
+    
     [Benchmark]
     public async Task<Either<Logic.Error, Logic.ParsedFile>> Safe()
     {
@@ -27,16 +33,12 @@ public class ParserBenchmarkComparison
         var result = await parser.ParseAsync();
         return result;
     }
-    
-    private static readonly string _cachedFileString = File.ReadAllText("SampleBig.txt");
-    
+
     [Benchmark]
     public Either<Logic.Error, Logic.ParsedFile> Safe_CachedFile()
     {
         return Parser.ParseInput(_cachedFileString);
     }
-    
-    private static readonly byte[] _cachedFileBytes = File.ReadAllBytes("SampleBig.txt");
     
     [Benchmark]
     public async Task<Result<ParsedFile>> Dirty_CachedFile()
@@ -45,6 +47,19 @@ public class ParserBenchmarkComparison
         var parser = new FileParser(pipeReader, new StateMachineParser());
         var result = await parser.ParseAsync();
         return result;
+    }
+    
+    [Benchmark]
+    public FSharpResult<FSharp.Parser.ParsedFile, FSharpList<string>> FsharpSafe_CachedFile()
+    {
+        return FSharp.Parser.runParseFile(_cachedFileString);
+    }
+    
+    [Benchmark]
+    public FSharpResult<FSharp.Parser.ParsedFile, FSharpList<string>> FsharpSafe_Stream()
+    {
+        using var stream = File.OpenRead("SampleBig.txt");
+        return FSharp.Parser.runParseFileS(stream);
     }
 }
 
